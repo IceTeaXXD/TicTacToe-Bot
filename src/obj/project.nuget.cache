@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "AyVOG62JiIc8V53LYmvWor9LtM2fDo+jmX1KtpruwI3DoSFm4GAGCzDo5wRS263nu+dSOa5Q9DYHQBafbofFjg==",
+  "success": true,
+  "projectFilePath": "C:\\File\\Nadil\\STEI ITB\\Semester 4\\STIMA\\TicTacToe-Bot\\src\\TicTacToe-Bot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ahmad\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.16\\microsoft.windowsdesktop.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\ahmad\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.16\\microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\ahmad\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.16\\microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
+    "C:\\Users\\ahmad\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.16\\microsoft.netcore.app.host.win-x64.6.0.16.nupkg.sha512"
+  ],
+  "logs": []
+}
