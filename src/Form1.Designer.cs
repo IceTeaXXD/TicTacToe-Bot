@@ -28,38 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            GameBoard = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)GameBoard).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // GameBoard
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(376, 104);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(537, 454);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            GameBoard.AllowUserToAddRows = false;
+            GameBoard.AllowUserToDeleteRows = false;
+            GameBoard.AllowUserToResizeColumns = false;
+            GameBoard.AllowUserToResizeRows = false;
+            GameBoard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            GameBoard.Location = new Point(371, 83);
+            GameBoard.Name = "GameBoard";
+            GameBoard.RowTemplate.Height = 25;
+            GameBoard.Size = new Size(550, 550);
+            GameBoard.TabIndex = 0;
             // 
             // TicTacToe
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1280, 720);
-            Controls.Add(dataGridView1);
+            Controls.Add(GameBoard);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "TicTacToe";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TicTacToe";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)GameBoard).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView GameBoard;
     }
 }
