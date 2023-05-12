@@ -34,15 +34,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1264, 681);
+            ClientSize = new Size(1280, 720);
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
-            MaximumSize = new Size(1280, 720);
-            MinimumSize = new Size(1280, 720);
             Name = "TicTacToe";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TicTacToe";
             ResumeLayout(false);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         #endregion
