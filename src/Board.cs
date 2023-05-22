@@ -148,7 +148,7 @@ class Board{
                     if (isEmpty(i, j)){
                         this.matrix[i, j] = 1; // Player's move
                         int score;
-                        if (checkImmediateWin() == 1) { // If immediate win for player, prioritize that
+                        if (checkImmediateThreat() == 1) { // If immediate win for player, prioritize that
                             score = -1000;
                         } else {
                             score = minimax(depth + 1, true, alpha, beta);
