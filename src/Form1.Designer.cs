@@ -59,6 +59,9 @@
             GameBoard.RowCount = 3;
             GameBoard.ColumnCount = 3;
             GameBoard.ReadOnly = true;
+            GameBoard.DefaultCellStyle.Font = new Font("Arial", 24);
+            GameBoard.DefaultCellStyle.ForeColor = Color.White;
+            GameBoard.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             // GameBoard.DefaultCellStyle.SelectionBackColor = Color.Transparent;
             GameBoard.CellClick += GameBoard_CellClick;
             // 

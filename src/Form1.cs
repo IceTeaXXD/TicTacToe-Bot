@@ -33,6 +33,7 @@ namespace TicTacToe_Bot
                 GameBoard.Rows[row].Cells[col].Value = value == 0 ? "O" : "X";
                 // Update the color of the cell, O is red, X is blue
                 GameBoard.Rows[row].Cells[col].Style.BackColor = value == 0 ? Color.Red : Color.Blue;
+                GameBoard.DefaultCellStyle.SelectionBackColor = value == 0 ? Color.Red : Color.Blue;
                 //  Check if there is a winner
                 int winner = board.checkWinner();
                 if (winner != -1)
