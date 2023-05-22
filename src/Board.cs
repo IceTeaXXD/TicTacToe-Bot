@@ -91,7 +91,7 @@ class Board{
                     this.matrix[row, col] = -1;
                     
                     // If the result of the move is better than the best score, update bestScore, moveRow, and moveCol
-                    if (moveScore > bestScore){
+                    if (moveScore >= bestScore){
                         bestScore = moveScore;
                         moveRow = row;
                         moveCol = col;
@@ -126,8 +126,13 @@ class Board{
             for (int i = 0; i < 3; i++){
                 for (int j = 0; j < 3; j++){
                     if (isEmpty(i, j)){
-                        this.matrix[i, j] = 0; // bot's move
-                        int score = minimax(depth + 1, false, alpha, beta);
+                        this.matrix[i, j] = 0; // Bot's move
+                        int score;
+                        if (checkImmediateWin() == 1) { // If immediate win for bot, prioritize that
+                            score = 1000;
+                        } else {
+                            score = minimax(depth + 1, false, alpha, beta);
+                        }
                         this.matrix[i, j] = -1; // Undo move
                         bestScore = Math.Max(score, bestScore);
                         alpha = Math.Max(alpha, bestScore);
@@ -141,16 +146,13 @@ class Board{
             for (int i = 0; i < 3; i++){
                 for (int j = 0; j < 3; j++){
                     if (isEmpty(i, j)){
-                        this.matrix[i, j] = 1; // player's move
-                        // New code starts here
+                        this.matrix[i, j] = 1; // Player's move
                         int score;
-                        int immediateThreat = checkImmediateThreat();
-                        if (immediateThreat == 1) { // If immediate threat exists, prioritize that
+                        if (checkImmediateWin() == 1) { // If immediate win for player, prioritize that
                             score = -1000;
                         } else {
                             score = minimax(depth + 1, true, alpha, beta);
                         }
-                        // New code ends here
                         this.matrix[i, j] = -1; // Undo move
                         bestScore = Math.Min(score, bestScore);
                         beta = Math.Min(beta, bestScore);
@@ -162,18 +164,31 @@ class Board{
         }
     }
 
-    // New function to check for imminent threats
     private int checkImmediateThreat() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (this.matrix[i, j] == -1) { // Check empty spots
-                    this.matrix[i, j] = 0; // Assume the bot places a piece here
-                    int winner = checkWinner(); // Check if this would make the bot win
+                    this.matrix[i, j] = 1; // Assume the player places a piece here
+                    int winner = checkWinner(); // Check if this would make the player win
                     this.matrix[i, j] = -1; // Reset the cell
-                    if (winner == 0) return 1; // If the bot could win, it's an immediate threat
+                    if (winner == 1) return 1; // If the player could win, it's an immediate threat
                 }
             }
         }
         return -1; // If no immediate threat found
+    }
+
+    private int checkImmediateWin(){
+        for (int i = 0 ; i < 3 ; i++) {
+            for (int j = 0 ; j < 3 ; j++) {
+                if (this.matrix[i, j] == -1) { // Check empty spots
+                    this.matrix[i, j] = 0; // Assume the bot places a piece here
+                    int winner = checkWinner(); // Check if this would make the bot win
+                    this.matrix[i, j] = -1; // Reset the cell
+                    if (winner == 0) return 1; // If the bot could win, it's an immediate win
+                }
+            }
+        }
+        return -1; // If no immediate win found
     }
 }

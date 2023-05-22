@@ -14,9 +14,6 @@ namespace TicTacToe_Bot
             {
                 GameBoard.Rows[i].Height = rowHeight;
             }
-            // Tuple<int, int> botMove = board.getBestMove();
-            // int botRow = botMove.Item1;
-            // int botCol = botMove.Item2;
             int botRow, botCol;
             (botRow, botCol) = board.getBestMove();
             //  Update the board
@@ -67,9 +64,6 @@ namespace TicTacToe_Bot
                 
                 // get the bot's move
                 if(turn % 2 == 0){
-                    // Tuple<int, int> botMove = board.getBestMove();
-                    // int botRow = botMove.Item1;
-                    // int botCol = botMove.Item2;
                     int botRow, botCol;
                     (botRow, botCol) = board.getBestMove();
                     //  Update the board
@@ -117,9 +111,6 @@ namespace TicTacToe_Bot
             //  Reset the turn
             turn = 0;
             GameBoard.DefaultCellStyle.SelectionBackColor = Color.White;
-            // Tuple<int, int> botMove = board.getBestMove();
-            // int botRow = botMove.Item1;
-            // int botCol = botMove.Item2;
             int botRow, botCol;
             (botRow, botCol) = board.getBestMove();
             //  Update the board
