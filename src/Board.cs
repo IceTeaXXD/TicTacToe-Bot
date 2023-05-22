@@ -71,60 +71,109 @@ class Board{
             }
         }
     }
+    public (int, int) getBestMove(int botToken = 0){
+        int bestScore = -1000;
+        int moveRow = -1;
+        int moveCol = -1;
 
-    public Tuple<int, int> getBestMove(){
-        int bestScore = int.MinValue;
-        Tuple<int, int> bestMove = Tuple.Create(-1, -1);
-
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                if(isEmpty(i, j)){
-                    matrix[i, j] = 1;
-                    int score = minimax(false);
-                    matrix[i, j] = -1;
-                    if(score > bestScore){
-                        bestScore = score;
-                        bestMove = Tuple.Create(i, j);
+        // Explore all cells in the board
+        for (int row = 0; row < 3; row++){
+            for (int col = 0; col < 3; col++){
+                // Check if the cell is empty
+                if (isEmpty(row, col)){
+                    // Make the move
+                    this.matrix[row, col] = botToken;
+                    
+                    // Compute evaluation function for this move.
+                    int moveScore = minimax(0, false, -1000, 1000);
+                    
+                    // Undo the move
+                    this.matrix[row, col] = -1;
+                    
+                    // If the result of the move is better than the best score, update bestScore, moveRow, and moveCol
+                    if (moveScore > bestScore){
+                        bestScore = moveScore;
+                        moveRow = row;
+                        moveCol = col;
                     }
                 }
             }
         }
-
-        return bestMove;
+        return (moveRow, moveCol);
     }
 
-    private int minimax(bool isMaximizing){
+    private int minimax(int depth, bool isMaximizingPlayer, int alpha, int beta){
         int winner = checkWinner();
-        if(winner != -1){
-            return winner == 1 ? 1 : -1;
+        if (winner != -1){
+            return winner == 0 ? 10 : -10; // 10 for bot win, -10 for player win
         }
 
-        if(isMaximizing){
-            int bestScore = int.MinValue;
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 3; j++){
-                    if(isEmpty(i, j)){
-                        matrix[i, j] = 1;
-                        int score = minimax(false);
-                        matrix[i, j] = -1;
-                        bestScore = Math.Max(score, bestScore);
-                    }
+        // Tie
+        bool isFull = true;
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (isEmpty(i, j)){
+                    isFull = false;
+                    break;
                 }
             }
-            return bestScore;
-        } else {
-            int bestScore = int.MaxValue;
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 3; j++){
-                    if(isEmpty(i, j)){
-                        matrix[i, j] = 2;
-                        int score = minimax(true);
-                        matrix[i, j] = -1;
-                        bestScore = Math.Min(score, bestScore);
-                    }
-                }
-            }
-            return bestScore;
+            if (!isFull) break;
         }
+        if (isFull) return 0; // Tie game returns score of 0
+
+        if (isMaximizingPlayer){
+            int bestScore = -1000;
+            for (int i = 0; i < 3; i++){
+                for (int j = 0; j < 3; j++){
+                    if (isEmpty(i, j)){
+                        this.matrix[i, j] = 0; // bot's move
+                        int score = minimax(depth + 1, false, alpha, beta);
+                        this.matrix[i, j] = -1; // Undo move
+                        bestScore = Math.Max(score, bestScore);
+                        alpha = Math.Max(alpha, bestScore);
+                        if (beta <= alpha) break; // Alpha Beta Pruning
+                    }
+                }
+            }
+            return bestScore - depth; // Subtract depth to prioritize faster wins
+        } else {
+            int bestScore = 1000;
+            for (int i = 0; i < 3; i++){
+                for (int j = 0; j < 3; j++){
+                    if (isEmpty(i, j)){
+                        this.matrix[i, j] = 1; // player's move
+                        // New code starts here
+                        int score;
+                        int immediateThreat = checkImmediateThreat();
+                        if (immediateThreat == 1) { // If immediate threat exists, prioritize that
+                            score = -1000;
+                        } else {
+                            score = minimax(depth + 1, true, alpha, beta);
+                        }
+                        // New code ends here
+                        this.matrix[i, j] = -1; // Undo move
+                        bestScore = Math.Min(score, bestScore);
+                        beta = Math.Min(beta, bestScore);
+                        if (beta <= alpha) break; // Alpha Beta Pruning
+                    }
+                }
+            }
+            return bestScore + depth; // Add depth to prioritize blocking the player faster
+        }
+    }
+
+    // New function to check for imminent threats
+    private int checkImmediateThreat() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (this.matrix[i, j] == -1) { // Check empty spots
+                    this.matrix[i, j] = 0; // Assume the bot places a piece here
+                    int winner = checkWinner(); // Check if this would make the bot win
+                    this.matrix[i, j] = -1; // Reset the cell
+                    if (winner == 0) return 1; // If the bot could win, it's an immediate threat
+                }
+            }
+        }
+        return -1; // If no immediate threat found
     }
 }

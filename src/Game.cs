@@ -14,16 +14,18 @@ namespace TicTacToe_Bot
             {
                 GameBoard.Rows[i].Height = rowHeight;
             }
-            Tuple<int, int> botMove = board.getBestMove();
-            int botRow = botMove.Item1;
-            int botCol = botMove.Item2;
+            // Tuple<int, int> botMove = board.getBestMove();
+            // int botRow = botMove.Item1;
+            // int botCol = botMove.Item2;
+            int botRow, botCol;
+            (botRow, botCol) = board.getBestMove();
             //  Update the board
             board.move(botRow, botCol, turn);
             //  Update the UI
             GameBoard.Rows[botRow].Cells[botCol].Value = turn % 2 == 1 ? "O" : "X";
             // Update the color of the cell, O is red, X is blue
             GameBoard.Rows[botRow].Cells[botCol].Style.BackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
-            GameBoard.DefaultCellStyle.SelectionBackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
+            GameBoard.DefaultCellStyle.SelectionBackColor = Color.White;
             turn++;
         }
 
@@ -65,9 +67,11 @@ namespace TicTacToe_Bot
                 
                 // get the bot's move
                 if(turn % 2 == 0){
-                    Tuple<int, int> botMove = board.getBestMove();
-                    int botRow = botMove.Item1;
-                    int botCol = botMove.Item2;
+                    // Tuple<int, int> botMove = board.getBestMove();
+                    // int botRow = botMove.Item1;
+                    // int botCol = botMove.Item2;
+                    int botRow, botCol;
+                    (botRow, botCol) = board.getBestMove();
                     //  Update the board
                     board.move(botRow, botCol, turn);
                     //  Update the UI
@@ -113,9 +117,11 @@ namespace TicTacToe_Bot
             //  Reset the turn
             turn = 0;
             GameBoard.DefaultCellStyle.SelectionBackColor = Color.White;
-            Tuple<int, int> botMove = board.getBestMove();
-            int botRow = botMove.Item1;
-            int botCol = botMove.Item2;
+            // Tuple<int, int> botMove = board.getBestMove();
+            // int botRow = botMove.Item1;
+            // int botCol = botMove.Item2;
+            int botRow, botCol;
+            (botRow, botCol) = board.getBestMove();
             //  Update the board
             board.move(botRow, botCol, turn);
             //  Update the UI
