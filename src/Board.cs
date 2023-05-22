@@ -71,7 +71,7 @@ class Board{
             }
         }
     }
-    public (int, int) getBestMove(int botToken = 0){
+    public (int, int) getBestMove(){
         int bestScore = -1000;
         int moveRow = -1;
         int moveCol = -1;
@@ -82,7 +82,7 @@ class Board{
                 // Check if the cell is empty
                 if (isEmpty(row, col)){
                     // Make the move
-                    this.matrix[row, col] = botToken;
+                    this.matrix[row, col] = 0;
                     
                     // Compute evaluation function for this move.
                     int moveScore = minimax(0, false, -1000, 1000);
