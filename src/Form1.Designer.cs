@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             GameBoard = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)GameBoard).BeginInit();
             SuspendLayout();
             // 
@@ -38,12 +41,38 @@
             GameBoard.AllowUserToDeleteRows = false;
             GameBoard.AllowUserToResizeColumns = false;
             GameBoard.AllowUserToResizeRows = false;
+            GameBoard.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             GameBoard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            GameBoard.ColumnHeadersVisible = false;
+            GameBoard.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            GameBoard.Cursor = Cursors.Hand;
             GameBoard.Location = new Point(371, 83);
+            GameBoard.MultiSelect = false;
             GameBoard.Name = "GameBoard";
+            GameBoard.RowHeadersVisible = false;
+            GameBoard.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             GameBoard.RowTemplate.Height = 25;
+            GameBoard.ScrollBars = ScrollBars.None;
             GameBoard.Size = new Size(550, 550);
             GameBoard.TabIndex = 0;
+            GameBoard.TabStop = false;
+            GameBoard.RowCount = 3;
+            GameBoard.ColumnCount = 3;
+            GameBoard.ReadOnly = true;
+            // GameBoard.DefaultCellStyle.SelectionBackColor = Color.Transparent;
+            GameBoard.CellClick += GameBoard_CellClick;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // TicTacToe
             // 
@@ -64,5 +93,8 @@
         #endregion
 
         private DataGridView GameBoard;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
