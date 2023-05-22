@@ -44,7 +44,7 @@ namespace TicTacToe_Bot
                     resetGame();
                 }
                 //  Check if the game is a draw
-                else if (turn == 8)
+                else if (turn == 9)
                 {
                     //  Display the draw
                     MessageBox.Show("Draw!");
@@ -68,6 +68,7 @@ namespace TicTacToe_Bot
             }
             //  Reset the turn
             turn = 0;
+            GameBoard.DefaultCellStyle.SelectionBackColor = Color.White;
         }
     }
 }
