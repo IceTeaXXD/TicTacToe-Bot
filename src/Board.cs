@@ -71,4 +71,60 @@ class Board{
             }
         }
     }
+
+    public Tuple<int, int> getBestMove(){
+        int bestScore = int.MinValue;
+        Tuple<int, int> bestMove = Tuple.Create(-1, -1);
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(isEmpty(i, j)){
+                    matrix[i, j] = 1;
+                    int score = minimax(false);
+                    matrix[i, j] = -1;
+                    if(score > bestScore){
+                        bestScore = score;
+                        bestMove = Tuple.Create(i, j);
+                    }
+                }
+            }
+        }
+
+        return bestMove;
+    }
+
+    private int minimax(bool isMaximizing){
+        int winner = checkWinner();
+        if(winner != -1){
+            return winner == 1 ? 1 : -1;
+        }
+
+        if(isMaximizing){
+            int bestScore = int.MinValue;
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < 3; j++){
+                    if(isEmpty(i, j)){
+                        matrix[i, j] = 1;
+                        int score = minimax(false);
+                        matrix[i, j] = -1;
+                        bestScore = Math.Max(score, bestScore);
+                    }
+                }
+            }
+            return bestScore;
+        } else {
+            int bestScore = int.MaxValue;
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < 3; j++){
+                    if(isEmpty(i, j)){
+                        matrix[i, j] = 2;
+                        int score = minimax(true);
+                        matrix[i, j] = -1;
+                        bestScore = Math.Min(score, bestScore);
+                    }
+                }
+            }
+            return bestScore;
+        }
+    }
 }

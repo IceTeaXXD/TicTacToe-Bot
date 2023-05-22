@@ -14,6 +14,17 @@ namespace TicTacToe_Bot
             {
                 GameBoard.Rows[i].Height = rowHeight;
             }
+            Tuple<int, int> botMove = board.getBestMove();
+            int botRow = botMove.Item1;
+            int botCol = botMove.Item2;
+            //  Update the board
+            board.move(botRow, botCol, turn);
+            //  Update the UI
+            GameBoard.Rows[botRow].Cells[botCol].Value = turn % 2 == 1 ? "O" : "X";
+            // Update the color of the cell, O is red, X is blue
+            GameBoard.Rows[botRow].Cells[botCol].Style.BackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
+            GameBoard.DefaultCellStyle.SelectionBackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
+            turn++;
         }
 
         private void GameBoard_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -25,15 +36,13 @@ namespace TicTacToe_Bot
             //  Check if the cell is empty
             if (board.isEmpty(row, col))
             {
-                //  Get the value of the current turn
-                int value = turn % 2 == 1 ? 0 : 1;
                 //  Update the board
                 board.move(row, col, turn);
                 //  Update the UI
-                GameBoard.Rows[row].Cells[col].Value = value == 0 ? "O" : "X";
+                GameBoard.Rows[row].Cells[col].Value = turn % 2 == 1 ? "O" : "X";
                 // Update the color of the cell, O is red, X is blue
-                GameBoard.Rows[row].Cells[col].Style.BackColor = value == 0 ? Color.Red : Color.Blue;
-                GameBoard.DefaultCellStyle.SelectionBackColor = value == 0 ? Color.Red : Color.Blue;
+                GameBoard.Rows[row].Cells[col].Style.BackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
+                GameBoard.DefaultCellStyle.SelectionBackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
                 //  Check if there is a winner
                 int winner = board.checkWinner();
                 if (winner != -1)
@@ -44,7 +53,7 @@ namespace TicTacToe_Bot
                     resetGame();
                 }
                 //  Check if the game is a draw
-                else if (turn == 9)
+                else if (turn == 8)
                 {
                     //  Display the draw
                     MessageBox.Show("Draw!");
@@ -53,13 +62,45 @@ namespace TicTacToe_Bot
                 }
                 //  Update the turn
                 turn++;
+                
+                // get the bot's move
+                if(turn % 2 == 0){
+                    Tuple<int, int> botMove = board.getBestMove();
+                    int botRow = botMove.Item1;
+                    int botCol = botMove.Item2;
+                    //  Update the board
+                    board.move(botRow, botCol, turn);
+                    //  Update the UI
+                    GameBoard.Rows[botRow].Cells[botCol].Value = "X";
+                    GameBoard.Rows[botRow].Cells[botCol].Style.BackColor = Color.Blue;
+                    // GameBoard.DefaultCellStyle.SelectionBackColor = Color.Blue;
+                    //  Check if there is a winner
+                    winner = board.checkWinner();
+                    if (winner != -1)
+                    {
+                        //  Display the winner
+                        MessageBox.Show(winner == 0 ? "O wins!" : "X wins!");
+                        //  Reset the game
+                        resetGame();
+                    }
+                    //  Check if the game is a draw
+                    else if (turn == 8)
+                    {
+                        //  Display the draw
+                        MessageBox.Show("Draw!");
+                        //  Reset the game
+                        resetGame();
+                    }
+                    //  Update the turn
+                    turn++;
+                }
             }
         }
 
         private void resetGame()
         {
             //  Reset the board
-            board = new Board();
+            board.resetGame();
             //  Reset the UI
             for (int i = 0; i < 3; i++)
             {
@@ -72,6 +113,15 @@ namespace TicTacToe_Bot
             //  Reset the turn
             turn = 0;
             GameBoard.DefaultCellStyle.SelectionBackColor = Color.White;
+            Tuple<int, int> botMove = board.getBestMove();
+            int botRow = botMove.Item1;
+            int botCol = botMove.Item2;
+            //  Update the board
+            board.move(botRow, botCol, turn);
+            //  Update the UI
+            GameBoard.Rows[botRow].Cells[botCol].Value = turn % 2 == 1 ? "O" : "X";
+            // Update the color of the cell, O is red, X is blue
+            GameBoard.Rows[botRow].Cells[botCol].Style.BackColor = turn % 2 == 1 ? Color.Red : Color.Blue;
         }
     }
 }
