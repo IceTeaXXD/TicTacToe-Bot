@@ -53,15 +53,18 @@ namespace TicTacToe_Bot
                 }
                 //  Update the turn
                 turn++;
-            } 
+            }
         }
 
-        private void resetGame(){
+        private void resetGame()
+        {
             //  Reset the board
             board = new Board();
             //  Reset the UI
-            for (int i = 0; i < 3; i++){
-                for(int j = 0; j < 3; j++){
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
                     GameBoard.Rows[i].Cells[j].Value = "";
                     GameBoard.Rows[i].Cells[j].Style.BackColor = Color.White;
                 }

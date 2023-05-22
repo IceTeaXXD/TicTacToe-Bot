@@ -46,7 +46,7 @@
             GameBoard.ColumnHeadersVisible = false;
             GameBoard.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
             GameBoard.Cursor = Cursors.Hand;
-            GameBoard.Location = new Point(371, 83);
+            GameBoard.Location = new Point(125, 120);
             GameBoard.MultiSelect = false;
             GameBoard.Name = "GameBoard";
             GameBoard.RowHeadersVisible = false;
@@ -81,7 +81,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1280, 720);
+            ClientSize = new Size(800, 800);
             Controls.Add(GameBoard);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
